@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+public class DragDropController : MonoBehaviour
 {
     public GameObject Blob;
     public GameObject Face;
@@ -29,7 +29,7 @@ public class GameController : MonoBehaviour
         if (hits.Length == 1)
         {
             var hit = hits[0];
-            if (hit.collider.gameObject.name.StartsWith("Cube")
+            if (hit.collider.gameObject.name.StartsWith("Container")
              && Input.GetMouseButtonDown(0)
              && draggedObject == null
              )

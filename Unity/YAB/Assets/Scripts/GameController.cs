@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -15,13 +10,15 @@ namespace Assets.Scripts
         private AlignmentController alignmentController;
         private HealthController healthController;
         public static GameController Instance { get; private set; }
-        
+
         public bool Pause { get; private set; }
         public bool Halted { get; private set; }
 
         public GameObject EndView;
         public GameObject ResultText;
         public GameObject StoryText;
+
+        public AudioClip[] Sounds;
 
         void Start()
         {
@@ -50,7 +47,7 @@ namespace Assets.Scripts
                 Pause = true;
                 ResultText.GetComponent<Text>().text = "YOU WON!";
                 if (alignment >= 0)
-                { 
+                {
                     StoryText.GetComponent<Text>().text = GoodWin;
                 }
                 else
@@ -69,6 +66,8 @@ namespace Assets.Scripts
         public void Ate(GameObject thing)
         {
             Halted = true;
+
+            GetComponent<AudioSource>().PlayOneShot(Sounds[UnityEngine.Random.Range(0, 3)]);
 
             var alignment = alignmentController.Alignment;
 
@@ -99,17 +98,17 @@ namespace Assets.Scripts
             Halted = false;
         }
 
-        private const string EvilWin = 
+        private const string EvilWin =
             @"The blob found itself as an evil entity, full of food and hope. Because of you it can now go into the world and fulfill it's evil deeds, taking over the world.
 
 Click or press any key to go back to the menu.";
 
-        private const string GoodWin = 
+        private const string GoodWin =
             @"The blob found itself as a good entity, full of food and hope. Because of you it can now go into the world and fulfill it's good deeds, saving one old lady after another.
 
 Click or press any key to go back to the menu.";
-        
-        private const string Loss = 
+
+        private const string Loss =
             @"The blob died of hunger. You didn't manage to keep it alive. Because of you the world have one less blob to marvel at.
 
 Click or press any key to go back to the menu.";

@@ -34,7 +34,7 @@ public class ContainersController : MonoBehaviour
         containers[index] = Instantiate(ContainerPrefab, PosForIndex(index), Quaternion.identity);
         containers[index].name = $"Container {index}";
         Instantiate(Things[Random.Range(0, Things.Length)], containers[index].transform);
-        containers[index].transform.GetChild(0).SetPositionAndRotation(containers[index].transform.position, Quaternion.Euler(0, 0, 0));
+        containers[index].transform.GetChild(0).SetPositionAndRotation(containers[index].transform.position, Quaternion.Euler(0, Random.Range(0, 360), 0));
         return containers[index];
     }
 

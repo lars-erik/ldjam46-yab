@@ -574,7 +574,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: daf49df7beb84ce4390eff66df4d6010,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.435
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: daf49df7beb84ce4390eff66df4d6010,
         type: 3}
@@ -924,6 +924,10 @@ MonoBehaviour:
     type: 3}
   Things:
   - {fileID: -927199367670048503, guid: abbf2c43fd0098e4986b1a67783ad090, type: 3}
+  - {fileID: 6314825009054552905, guid: 3c5ac103fbed0ee49af61b20d424dd12, type: 3}
+  - {fileID: 460579198985753337, guid: d3f24051804d6b1409087d795094e219, type: 3}
+  - {fileID: 1229132545227380029, guid: e08a17c574f70284495974f3cae59a06, type: 3}
+  - {fileID: 891519086997411161, guid: 29b27d63282c0234ea591a57cf627aed, type: 3}
 --- !u!114 &1971827497
 MonoBehaviour:
   m_ObjectHideFlags: 0

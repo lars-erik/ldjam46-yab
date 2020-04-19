@@ -1,21 +1,24 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts;
 using UnityEngine;
 
 public class HealthController : MonoBehaviour
 {
-    private const int MaxHealth = 60;
+    public int MaxHealth = 60;
+    public int TickLength = 1;
+    public int LossPerTick = 2;
 
     public GameObject HealthBar;
 
-    private int health = MaxHealth;
+    public int Health;
     private float lastTick;
     private RectTransform healthTransform;
 
     public void AddHealth(int amount)
     {
-        health = Math.Min(MaxHealth, health + amount);
+        Health = Math.Min(MaxHealth, Health + amount);
         UpdateHealthBar();
     }
 
@@ -23,6 +26,7 @@ public class HealthController : MonoBehaviour
 
     void Start()
     {
+        Health = MaxHealth;
         lastTick = Time.time;
         healthTransform = (RectTransform)HealthBar.transform;
     }
@@ -31,10 +35,15 @@ public class HealthController : MonoBehaviour
 
     void Update()
     {
-        if (Time.time > lastTick + 1 && health > 0)
+        if (GameController.Instance.Pause)
+        {
+            return;
+        }
+
+        if (Time.time > lastTick + TickLength && Health > 0)
         {
             lastTick = Time.time;
-            health--;
+            Health -= LossPerTick;
 
             UpdateHealthBar();
         }
@@ -42,6 +51,6 @@ public class HealthController : MonoBehaviour
 
     private void UpdateHealthBar()
     {
-        healthTransform.sizeDelta = new Vector2(400f * health / MaxHealth, 40);
+        healthTransform.sizeDelta = new Vector2(400f * Health / MaxHealth, 40);
     }
 }

@@ -23,7 +23,7 @@ public class DragDropController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameController.Instance.Halted)
+        if (GameController.Instance.Halted || GameController.Instance.Pause)
         {
             return;
         }

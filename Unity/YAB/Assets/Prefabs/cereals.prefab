@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3476523343353225450}
   - component: {fileID: 5576601139184605916}
   - component: {fileID: 2186665139722839589}
+  - component: {fileID: 578281820438726999}
   m_Layer: 0
   m_Name: cereals
   m_TagString: Untagged
@@ -79,3 +80,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &578281820438726999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460579198985753337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907c01995793bbb45a3af64d221640bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 5
+  Alignment: 0

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts;
 using UnityEngine;
 
 public class DragDropController : MonoBehaviour
@@ -22,6 +23,11 @@ public class DragDropController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameController.Instance.Halted)
+        {
+            return;
+        }
+
         var mousePos = Input.mousePosition;
         var ray = Camera.main.ScreenPointToRay(mousePos);
         var hits = Physics.RaycastAll(ray, 100f);
@@ -61,7 +67,14 @@ public class DragDropController : MonoBehaviour
             }
             else
             {
-                draggedObject.transform.position = originalPoint;
+                if (isOverFace)
+                {
+                    GameController.Instance.Ate(draggedObject);
+                }
+                else
+                {
+                    draggedObject.transform.position = originalPoint;
+                }
                 draggedObject = null;
                 Face.GetComponent<MeshRenderer>().material.mainTexture = IdleFace;
             }

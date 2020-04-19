@@ -17,7 +17,7 @@ public class DragDropController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -32,21 +32,24 @@ public class DragDropController : MonoBehaviour
         var ray = Camera.main.ScreenPointToRay(mousePos);
         var hits = Physics.RaycastAll(ray, 100f);
         var isOverFace = false;
-        if (hits.Length == 1)
+        if (hits.Length > 0)
         {
-            var hit = hits[0];
-            if (hit.collider.gameObject.name.StartsWith("Container")
-             && Input.GetMouseButtonDown(0)
-             && draggedObject == null
-             )
+            if (hits.Any(x => x.collider.gameObject.name == "blob"))
             {
-                draggedObject = hit.collider.gameObject;
-                originalPoint = hit.transform.position;
+                isOverFace = true;
             }
-        }
-        else if (hits.Any(x => x.collider.gameObject.name == "blob"))
-        {
-            isOverFace = true;
+            else
+            {
+                var hit = hits[0];
+                if (hit.collider.gameObject.name.StartsWith("Container")
+                 && Input.GetMouseButtonDown(0)
+                 && draggedObject == null
+                 )
+                {
+                    draggedObject = hit.collider.gameObject;
+                    originalPoint = hit.transform.position;
+                }
+            }
         }
 
         if (draggedObject != null)
@@ -54,7 +57,7 @@ public class DragDropController : MonoBehaviour
             var distance = Camera.main.transform.position.z - draggedObject.transform.position.z;
             var worldPoint = Camera.main.ScreenToWorldPoint(mousePos + new Vector3(0, 0, distance));
             if (Input.GetMouseButton(0))
-            { 
+            {
                 draggedObject.transform.position = new Vector3(worldPoint.x, worldPoint.y, originalPoint.z);
                 if (isOverFace)
                 {

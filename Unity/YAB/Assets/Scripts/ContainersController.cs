@@ -32,6 +32,7 @@ public class ContainersController : MonoBehaviour
     private GameObject CreateContainer(int index)
     {
         containers[index] = Instantiate(ContainerPrefab, PosForIndex(index), Quaternion.identity);
+        containers[index].name = $"Container {index}";
         Instantiate(Things[Random.Range(0, Things.Length)], containers[index].transform);
         containers[index].transform.GetChild(0).SetPositionAndRotation(containers[index].transform.position, Quaternion.Euler(0, 0, 0));
         return containers[index];
@@ -85,28 +86,43 @@ public class ContainersController : MonoBehaviour
     private IEnumerator AddNewItem()
     {
         fallStart = Time.time;
+        float t;
 
-        for (var i = 0; i < 30; i++)
-        {
-            float t = (Time.time - fallStart) / FallTime;
+        if (removedIndex < 4)
+        { 
+            do
+            {
+                t = (Time.time - fallStart) / FallTime;
+                for (var x = removedIndex; x < 4; x++)
+                {
+                    containers[x].transform.position = Vector3.Lerp(PosForIndex(x + 1), PosForIndex(x), t);
+                }
+                if (t < fallStart + FallTime) 
+                { 
+                    yield return new WaitForSeconds(.007f);
+                }
+            } while (Time.time < fallStart + FallTime);
             for (var x = removedIndex; x < 4; x++)
             {
-                containers[x].transform.position = Vector3.Lerp(PosForIndex(x + 1), PosForIndex(x), t);
+                containers[x].transform.position = PosForIndex(x);
             }
-            yield return new WaitForSeconds(.007f);
         }
 
         fallStart = Time.time;
 
         var newObj = CreateContainer(4);
-        newObj.transform.position = newObj.transform.position + new Vector3(0, .6f, 0);
+        newObj.transform.position = PosForIndex(5);
 
-        for (var i = 0; i < 30; i++)
+        do
         {
-            float t = (Time.time - fallStart) / FallTime;
+            t = (Time.time - fallStart) / FallTime;
             newObj.transform.position = Vector3.Lerp(PosForIndex(5), PosForIndex(4), t);
-            yield return new WaitForSeconds(.007f);
-        }
+            if (t < fallStart + FallTime)
+            {
+                yield return new WaitForSeconds(.007f);
+            }
+        } while (Time.time < fallStart + FallTime);
+        newObj.transform.position = PosForIndex(4);
 
         GameController.Instance.GoodToGo();
     }

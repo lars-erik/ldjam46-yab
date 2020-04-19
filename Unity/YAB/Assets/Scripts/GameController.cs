@@ -17,7 +17,6 @@ namespace Assets.Scripts
         void Start()
         {
             Instance = this;
-            DontDestroyOnLoad(this);
         }
 
         private void Update()
